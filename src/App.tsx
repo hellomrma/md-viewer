@@ -7,6 +7,7 @@ import { useHeadings } from "@/hooks/useHeadings";
 import { useActiveHeading } from "@/hooks/useActiveHeading";
 import { useDocsLibrary } from "@/hooks/useDocsLibrary";
 import { useDocsDeepLink, type DeepLinkTarget } from "@/hooks/useDocsDeepLink";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 import { Dropzone } from "@/components/Dropzone";
 import { Toolbar } from "@/components/Toolbar";
 import { TocSidebar } from "@/components/TocSidebar";
@@ -64,6 +65,8 @@ function Shell() {
 
   const { navigateToDoc, navigateToHome } = useDocsDeepLink({ docs, onResolve });
 
+  useDocumentMeta(file);
+
   useEffect(() => {
     if (error) push({ variant: "error", text: ERROR_TEXT[error] });
   }, [error, push]);
@@ -96,17 +99,15 @@ function Shell() {
       {file && (
         <>
           <Toolbar fileName={file.name} onReset={handleReset} />
-          <div className="mx-auto flex max-w-screen-2xl">
-            <main className="min-w-0 flex-1">
-              <MarkdownView
-                ref={bodyRef}
-                source={file.content}
-                widthClass={widthClass(prefs.width)}
-                fontClass={fontClass(prefs.font)}
-              />
-            </main>
-            <TocSidebar headings={headings} activeId={activeId} />
-          </div>
+          <main>
+            <MarkdownView
+              ref={bodyRef}
+              source={file.content}
+              widthClass={widthClass(prefs.width)}
+              fontClass={fontClass(prefs.font)}
+            />
+          </main>
+          <TocSidebar headings={headings} activeId={activeId} />
         </>
       )}
       <ToastStack toasts={toasts} onDismiss={dismiss} />

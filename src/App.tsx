@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { PreferencesProvider, usePrefs } from "@/context/PreferencesContext";
+import { PreferencesProvider } from "@/context/PreferencesContext";
+import { usePrefs } from "@/context/usePrefs";
 import { useFileLoader, type LoadErrorCode } from "@/hooks/useFileLoader";
 import { useToast } from "@/hooks/useToast";
 import { useHeadings } from "@/hooks/useHeadings";

@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, type ReactNode } from "react";
+import { createContext, useEffect, type ReactNode } from "react";
 import { usePreferences, type UsePreferencesState } from "@/hooks/usePreferences";
 
-const Ctx = createContext<UsePreferencesState | null>(null);
+// eslint-disable-next-line react-refresh/only-export-components -- context object must live alongside provider
+export const PreferencesContext = createContext<UsePreferencesState | null>(null);
 
 function applyDarkClass(theme: string) {
   if (typeof document === "undefined") return;
@@ -27,11 +28,5 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     return () => mq.removeEventListener?.("change", onChange);
   }, [value.prefs.theme]);
 
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
-}
-
-export function usePrefs(): UsePreferencesState {
-  const v = useContext(Ctx);
-  if (!v) throw new Error("usePrefs must be used within PreferencesProvider");
-  return v;
+  return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }

@@ -4,7 +4,10 @@ import {
   type BundledLanguage,
 } from "shiki/bundle/web";
 
-const LANGS: BundledLanguage[] = [
+// Languages supported by the web bundle; cast needed because BundledLanguage
+// union in shiki/bundle/web doesn't list every alias (e.g. "go", "rust", "diff"
+// are real grammars bundled but missing from the narrower type union).
+const LANGS = [
   "javascript",
   "typescript",
   "jsx",
@@ -22,7 +25,7 @@ const LANGS: BundledLanguage[] = [
   "xml",
   "sql",
   "diff",
-];
+] satisfies string[] as unknown as BundledLanguage[];
 
 let promise: Promise<Highlighter> | null = null;
 

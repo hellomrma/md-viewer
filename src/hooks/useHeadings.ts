@@ -18,7 +18,10 @@ function sameHeadings(a: Heading[], b: Heading[]): boolean {
 export function useHeadings(ref: RefObject<HTMLElement>): Heading[] {
   const [headings, setHeadings] = useState<Heading[]>([]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
+    // intentionally no deps: re-scan DOM on every render; setState identity guard
+    // prevents render loops. See useHeadings test for behavior.
     if (!ref.current) {
       setHeadings((prev) => (prev.length === 0 ? prev : []));
       return;

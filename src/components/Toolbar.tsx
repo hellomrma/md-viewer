@@ -1,4 +1,4 @@
-import { usePrefs } from "@/context/PreferencesContext";
+import { usePrefs } from "@/context/usePrefs";
 
 interface Props {
   fileName: string;

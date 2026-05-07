@@ -1,7 +1,8 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { PreferencesProvider, usePrefs } from "./PreferencesContext";
+import { PreferencesProvider } from "./PreferencesContext";
+import { usePrefs } from "./usePrefs";
 
 beforeEach(() => {
   localStorage.clear();

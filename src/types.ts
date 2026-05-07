@@ -20,6 +20,12 @@ export interface FileMeta {
   sizeKB: number;
 }
 
+export interface DocEntry {
+  file: string;
+  title: string;
+  sizeKB: number;
+}
+
 export interface Heading {
   id: string;
   text: string;

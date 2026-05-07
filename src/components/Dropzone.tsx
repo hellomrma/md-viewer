@@ -1,7 +1,10 @@
 import { useCallback, useRef, useState } from "react";
+import type { DocEntry } from "@/types";
+import { Library } from "./Library";
 
 interface Props {
   onFiles: (files: FileList | File[]) => void;
+  library?: { docs: DocEntry[]; onSelect: (entry: DocEntry) => void };
 }
 
 const FEATURES: { num: string; title: string; desc: string }[] = [
@@ -48,7 +51,7 @@ function CornerMark({ className }: { className: string }) {
   );
 }
 
-export function Dropzone({ onFiles }: Props) {
+export function Dropzone({ onFiles, library }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [active, setActive] = useState(false);
 
@@ -170,6 +173,10 @@ export function Dropzone({ onFiles }: Props) {
           </div>
         </div>
       </section>
+
+      {library && library.docs.length > 0 && (
+        <Library docs={library.docs} onSelect={library.onSelect} />
+      )}
 
       {/* Features */}
       <section className="mx-auto max-w-6xl px-6 py-24">

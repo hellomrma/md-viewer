@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Dropzone } from "./Dropzone";
+import type { DocEntry } from "@/types";
 
 function makeFile(name: string): File {
   return new File(["# hi"], name, { type: "text/markdown" });
@@ -39,5 +40,34 @@ describe("Dropzone", () => {
     fireEvent.dragEnter(zone, { dataTransfer: { types: ["Files"] } });
     expect(zone.className).toMatch(/ring|border-/);
     fireEvent.dragLeave(zone);
+  });
+});
+
+describe("Dropzone library section", () => {
+  it("does not render Library when prop is omitted", () => {
+    render(<Dropzone onFiles={() => {}} />);
+    expect(screen.queryByText(/라이브러리에서 바로 열기/)).toBeNull();
+  });
+
+  it("does not render Library when docs is empty", () => {
+    render(
+      <Dropzone
+        onFiles={() => {}}
+        library={{ docs: [], onSelect: () => {} }}
+      />,
+    );
+    expect(screen.queryByText(/라이브러리에서 바로 열기/)).toBeNull();
+  });
+
+  it("renders Library cards when docs present", () => {
+    const docs: DocEntry[] = [{ file: "a.md", title: "Alpha", sizeKB: 1 }];
+    render(
+      <Dropzone
+        onFiles={() => {}}
+        library={{ docs, onSelect: () => {} }}
+      />,
+    );
+    expect(screen.getByText("라이브러리에서 바로 열기")).toBeInTheDocument();
+    expect(screen.getByText("Alpha")).toBeInTheDocument();
   });
 });

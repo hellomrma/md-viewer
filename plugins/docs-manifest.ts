@@ -124,7 +124,11 @@ export function docsManifest(): Plugin {
     },
 
     async buildStart() {
-      await writeManifest(docsAbsDir);
+      try {
+        await writeManifest(docsAbsDir);
+      } catch (err) {
+        console.error("[vite-plugin-docs-manifest] buildStart failed:", err);
+      }
     },
 
     configureServer(server) {
@@ -137,6 +141,12 @@ export function docsManifest(): Plugin {
       server.watcher.on("add", onChange);
       server.watcher.on("change", onChange);
       server.watcher.on("unlink", onChange);
+      return () => {
+        server.watcher.off("add", onChange);
+        server.watcher.off("change", onChange);
+        server.watcher.off("unlink", onChange);
+        if (timer) { clearTimeout(timer); timer = null; }
+      };
     },
   };
 }

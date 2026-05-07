@@ -97,8 +97,7 @@ export function Dropzone({ onFiles }: Props) {
             className="col-span-12 text-[3rem] font-semibold text-ink-fg dark:text-nightInk-fg sm:text-[4rem] lg:col-span-9 lg:text-[4.5rem]"
             style={{ letterSpacing: "-0.035em", lineHeight: 1.05 }}
           >
-            <span className="block">마크다운 파일을,</span>
-            <span className="block">브라우저에서 봅니다.</span>
+            <span className="block">마크다운 뷰어.</span>
           </h1>
         </div>
       </section>

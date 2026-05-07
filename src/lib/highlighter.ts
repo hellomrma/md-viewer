@@ -1,6 +1,10 @@
-import { createHighlighter, type Highlighter } from "shiki";
+import {
+  createHighlighter,
+  type Highlighter,
+  type BundledLanguage,
+} from "shiki/bundle/web";
 
-const LANGS = [
+const LANGS: BundledLanguage[] = [
   "javascript",
   "typescript",
   "jsx",
@@ -18,7 +22,7 @@ const LANGS = [
   "xml",
   "sql",
   "diff",
-] as const;
+];
 
 let promise: Promise<Highlighter> | null = null;
 
@@ -26,7 +30,7 @@ export function getHighlighter(): Promise<Highlighter> {
   if (!promise) {
     promise = createHighlighter({
       themes: ["github-light", "github-dark"],
-      langs: [...LANGS],
+      langs: LANGS,
     });
   }
   return promise;

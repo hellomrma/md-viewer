@@ -8,8 +8,7 @@ export type LoadErrorCode =
   | "BAD_EXT"
   | "TOO_LARGE"
   | "BAD_ENCODING"
-  | "MULTIPLE"
-  | "FOLDER";
+  | "MULTIPLE";
 
 export type LoadResult =
   | { ok: true; value: FileMeta }

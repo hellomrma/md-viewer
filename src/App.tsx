@@ -16,7 +16,6 @@ const ERROR_TEXT: Record<LoadErrorCode, string> = {
   TOO_LARGE: "5MB 이하 파일만 지원해요",
   BAD_ENCODING: "UTF-8 마크다운 파일이어야 해요",
   MULTIPLE: "한 번에 하나의 파일만 열 수 있어요",
-  FOLDER: "단일 .md 파일을 드롭해주세요",
 };
 
 function widthClass(w: "narrow" | "normal" | "wide"): string {

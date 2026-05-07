@@ -25,7 +25,8 @@ test("drop file → render → TOC → dark mode → reset", async ({ page }) =>
   await expect(page).toHaveURL(/#features$/);
 
   // Toggle dark theme
-  await page.getByLabel("테마").selectOption("dark");
+  await page.getByRole("button", { name: "테마" }).click();
+  await page.getByRole("option", { name: "다크" }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
 
   // Reset → back to dropzone

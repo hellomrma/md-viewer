@@ -87,7 +87,8 @@
     @apply my-1.5;
   }
   .md-body blockquote {
-    @apply my-6 border-l-2 border-ink-fg pl-5 text-ink-muted dark:border-nightInk-fg dark:text-nightInk-muted;
+    @apply my-6 rounded-r-md border-l-4 border-ink-point bg-ink-thead py-3 pl-5 pr-4 italic text-ink-muted
+           dark:border-nightInk-point dark:bg-nightInk-thead dark:text-nightInk-muted;
   }
   .md-body hr {
     @apply my-10 border-ink-border dark:border-nightInk-border;
@@ -100,10 +101,42 @@
     @apply border border-ink-border px-3 py-2 dark:border-nightInk-border;
   }
   .md-body th {
-    @apply text-left font-semibold text-ink-fg dark:text-nightInk-fg;
+    @apply bg-ink-thead text-left font-semibold text-ink-point
+           dark:bg-nightInk-thead dark:text-nightInk-point;
+    border-bottom-width: 2px;
+  }
+  .md-body tbody tr:nth-child(even) td {
+    @apply bg-ink-surface dark:bg-nightInk-surface;
+  }
+  .md-body tbody tr:hover td {
+    background-color: theme("colors.ink.thead");
+    transition: background-color 0.1s;
+  }
+  .dark .md-body tbody tr:hover td {
+    background-color: theme("colors.nightInk.thead");
+  }
+  .md-body strong {
+    @apply font-bold text-ink-fg dark:text-nightInk-fg;
+  }
+  .md-body em {
+    @apply italic text-ink-muted dark:text-nightInk-muted;
+  }
+  .md-body mark {
+    @apply rounded-sm bg-ink-mark px-0.5 py-px text-ink-fg
+           dark:bg-nightInk-mark dark:text-nightInk-fg;
+  }
+  .md-body kbd {
+    @apply rounded border border-b-2 border-ink-border bg-ink-surface px-1.5 py-0.5
+           font-mono text-[0.85em] text-ink-fg shadow-sm
+           dark:border-nightInk-border dark:bg-nightInk-surface dark:text-nightInk-fg;
+  }
+  .md-body del {
+    @apply text-ink-subtle line-through dark:text-nightInk-subtle;
   }
   .md-body code:not(pre code) {
-    @apply bg-ink-surface px-1.5 py-0.5 font-sans text-[0.9em] text-ink-fg dark:bg-nightInk-surface dark:text-nightInk-fg;
+    @apply rounded bg-ink-surface px-1.5 py-0.5 font-sans text-[0.85em] text-ink-point
+           ring-1 ring-ink-border
+           dark:bg-nightInk-surface dark:text-nightInk-point dark:ring-nightInk-border;
   }
   .md-body pre {
     @apply my-6 overflow-x-auto border border-ink-border p-4 font-sans text-[0.9em] dark:border-nightInk-border;
@@ -112,7 +145,7 @@
     font-family: inherit;
   }
   .md-body img {
-    @apply my-5 max-w-full;
+    @apply my-5 max-w-full rounded;
   }
   .md-body .heading-anchor {
     @apply ml-2 no-underline opacity-0 transition-opacity;

@@ -37,6 +37,8 @@ export default {
           code: "#fafafa",
           border: "#e5e5e5",
           point: "#1d4ed8",
+          thead: "#eef2ff",
+          mark: "#fef9c3",
         },
         // Editorial Monochrome — dark (calm dark gray, not pitch black)
         nightInk: {
@@ -48,6 +50,8 @@ export default {
           code: "#2a2d34",
           border: "#3a3e47",
           point: "#7aa7ff",
+          thead: "#1e2642",
+          mark: "#3d2e00",
         },
       },
     },

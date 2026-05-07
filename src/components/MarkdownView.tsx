@@ -1,7 +1,7 @@
-import { forwardRef, type ReactNode } from "react";
+import { forwardRef, type ReactNode, isValidElement } from "react";
 import ReactMarkdown from "react-markdown";
 import { remarkPlugins, rehypePluginsSync } from "@/lib/markdown";
-import { CodeBlock } from "./CodeBlock";
+import { HighlightedCode } from "./HighlightedCode";
 
 interface Props {
   source: string;
@@ -12,6 +12,14 @@ interface Props {
 function isExternal(href: string | undefined): boolean {
   if (!href) return false;
   return /^https?:\/\//i.test(href);
+}
+
+function extractText(node: ReactNode): string {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (isValidElement<{ children?: ReactNode }>(node)) return extractText(node.props.children);
+  return "";
 }
 
 export const MarkdownView = forwardRef<HTMLDivElement, Props>(function MarkdownView(
@@ -35,7 +43,13 @@ export const MarkdownView = forwardRef<HTMLDivElement, Props>(function MarkdownV
         remarkPlugins={remarkPlugins}
         rehypePlugins={rehypePluginsSync}
         components={{
-          pre: ({ children, node, ...rest }) => <CodeBlock {...rest}>{children as ReactNode}</CodeBlock>,
+          code({ className, children, ...rest }) {
+            const match = /language-(\w+)/.exec(className ?? "");
+            if (match) {
+              return <HighlightedCode lang={match[1]} code={extractText(children).replace(/\n$/, "")} />;
+            }
+            return <code className={className} {...rest}>{children}</code>;
+          },
           a: ({ href, children, ...rest }) => {
             if (isExternal(href)) {
               return (

@@ -45,7 +45,7 @@ export function HighlightedCode({ code, lang }: Props) {
     <div className="group relative my-5">
       {html ? (
         <div
-          className="overflow-x-auto rounded-lg [&_pre]:p-4 [&_pre]:font-sans [&_pre]:text-[0.9em]"
+          className="overflow-x-auto rounded-lg [&_pre]:p-4 [&_pre]:font-sans [&_pre]:text-[0.9em] [&_code]:font-sans"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (

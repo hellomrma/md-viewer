@@ -15,13 +15,7 @@ export default {
           "Noto Sans KR",
           "sans-serif",
         ],
-        mono: [
-          "JetBrains Mono",
-          "Fira Code",
-          "ui-monospace",
-          "SFMono-Regular",
-          "monospace",
-        ],
+        mono: ["JetBrains Mono", "Fira Code", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       maxWidth: {
         "prose-narrow": "640px",

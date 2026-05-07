@@ -7,10 +7,11 @@ export default {
     extend: {
       fontFamily: {
         sans: [
+          "Pretendard Variable",
+          "Pretendard",
           "system-ui",
           "-apple-system",
           "Segoe UI",
-          "Pretendard Variable",
           "Apple SD Gothic Neo",
           "Noto Sans KR",
           "sans-serif",
@@ -22,23 +23,42 @@ export default {
         "prose-normal": "760px",
         "prose-wide": "920px",
       },
+      letterSpacing: {
+        kicker: "0.22em",
+      },
       colors: {
+        // Editorial Monochrome — light
         ink: {
           bg: "#ffffff",
-          fg: "#1f2328",
-          muted: "#5b6370",
-          code: "#f6f7f9",
-          border: "#e5e7eb",
+          fg: "#0a0a0a",
+          muted: "#525252",
+          subtle: "#737373",
+          surface: "#fafafa",
+          code: "#fafafa",
+          border: "#e5e5e5",
+          point: "#1d4ed8",
         },
+        // Editorial Monochrome — dark (calm dark gray, not pitch black)
         nightInk: {
-          bg: "#0f1115",
-          fg: "#e6e7ea",
-          muted: "#9aa3b2",
-          code: "#161922",
-          border: "#252a35",
+          bg: "#23262c",
+          fg: "#e7e8ec",
+          muted: "#a4a8b1",
+          subtle: "#6f7480",
+          surface: "#2d3139",
+          code: "#2a2d34",
+          border: "#3a3e47",
+          point: "#7aa7ff",
         },
       },
     },
   },
+  safelist: [
+    "md-width-narrow",
+    "md-width-normal",
+    "md-width-wide",
+    "md-font-s",
+    "md-font-m",
+    "md-font-l",
+  ],
   plugins: [],
 } satisfies Config;

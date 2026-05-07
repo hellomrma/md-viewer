@@ -5,10 +5,14 @@ import { Toast } from "./Toast";
 
 describe("Toast", () => {
   it("renders text and variant style", () => {
-    render(<Toast toast={{ id: 1, variant: "error", text: "bad" }} onDismiss={() => {}} />);
+    const { container } = render(
+      <Toast toast={{ id: 1, variant: "error", text: "bad" }} onDismiss={() => {}} />,
+    );
     const el = screen.getByRole("status");
     expect(el).toHaveTextContent("bad");
-    expect(el.className).toMatch(/red|error|destructive/i);
+    // editorial monochrome: error is signaled by a colored dot, not background
+    const dot = container.querySelector("[aria-hidden]");
+    expect(dot?.className).toMatch(/red/i);
   });
 
   it("calls onDismiss when close button clicked", async () => {

@@ -10,7 +10,7 @@ function makeFile(name: string): File {
 describe("Dropzone", () => {
   it("renders helper text and file input", () => {
     render(<Dropzone onFiles={() => {}} />);
-    expect(screen.getByText(/끌어다 놓|드래그/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/끌어다 놓|드래그/i).length).toBeGreaterThan(0);
     expect(screen.getByLabelText(/파일 선택/i)).toBeInTheDocument();
   });
 

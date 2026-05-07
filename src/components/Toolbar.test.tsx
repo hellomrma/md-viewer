@@ -39,14 +39,15 @@ describe("Toolbar", () => {
     expect(fn).toHaveBeenCalled();
   });
 
-  it("toggling theme select updates context", async () => {
+  it("selecting dark theme via dropdown applies dark class", async () => {
     const user = userEvent.setup();
     render(
       <PreferencesProvider>
         <Toolbar fileName="x.md" onReset={() => {}} />
       </PreferencesProvider>,
     );
-    await user.selectOptions(screen.getByLabelText(/테마/), "dark");
-    expect((screen.getByLabelText(/테마/) as HTMLSelectElement).value).toBe("dark");
+    await user.click(screen.getByLabelText(/테마/));
+    await user.click(screen.getByRole("option", { name: /다크/ }));
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
   });
 });

@@ -6,21 +6,26 @@ interface Props {
 }
 
 export function Toast({ toast, onDismiss }: Props) {
-  const variantClass =
-    toast.variant === "error"
-      ? "border-red-300 bg-red-50 text-red-900 dark:border-red-700 dark:bg-red-950/60 dark:text-red-100"
-      : "border-ink-border bg-ink-bg text-ink-fg dark:border-nightInk-border dark:bg-nightInk-bg dark:text-nightInk-fg";
+  const isError = toast.variant === "error";
 
   return (
     <div
       role="status"
-      className={`pointer-events-auto flex items-start gap-3 rounded-md border px-3 py-2 text-sm shadow-md ${variantClass}`}
+      className="pointer-events-auto flex items-start gap-3 border border-ink-fg bg-ink-bg px-4 py-3 text-sm text-ink-fg dark:border-nightInk-fg dark:bg-nightInk-bg dark:text-nightInk-fg"
     >
-      <span className="flex-1">{toast.text}</span>
+      <span
+        aria-hidden
+        className={`mt-1.5 inline-block size-1.5 shrink-0 rounded-full ${
+          isError ? "bg-red-600 dark:bg-red-400" : "bg-ink-fg dark:bg-nightInk-fg"
+        }`}
+      />
+      <span className="flex-1" style={{ lineHeight: 1.6 }}>
+        {toast.text}
+      </span>
       <button
         type="button"
         aria-label="닫기"
-        className="opacity-60 hover:opacity-100"
+        className="text-ink-subtle hover:text-ink-point dark:text-nightInk-subtle dark:hover:text-nightInk-point"
         onClick={() => onDismiss(toast.id)}
       >
         ✕
@@ -31,7 +36,7 @@ export function Toast({ toast, onDismiss }: Props) {
 
 export function ToastStack({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismiss: (id: number) => void }) {
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-50 flex w-full max-w-sm flex-col gap-2 no-print">
+    <div className="no-print pointer-events-none fixed bottom-6 right-6 z-50 flex w-full max-w-sm flex-col gap-2">
       {toasts.map((t) => (
         <Toast key={t.id} toast={t} onDismiss={onDismiss} />
       ))}

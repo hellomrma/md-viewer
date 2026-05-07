@@ -16,23 +16,21 @@ export function TocSidebar({ headings, activeId }: Props) {
   return (
     <aside
       aria-label="목차"
-      className="sticky top-16 hidden h-[calc(100vh-5rem)] w-60 shrink-0 overflow-y-auto border-l border-ink-border px-4 py-6 text-sm dark:border-nightInk-border md:block no-print"
+      className="no-print sticky top-16 hidden h-[calc(100vh-5rem)] w-64 shrink-0 overflow-y-auto border-l border-ink-border px-6 py-8 text-sm dark:border-nightInk-border md:block"
     >
-      <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-muted dark:text-nightInk-muted">
-        목차
-      </h2>
-      <ul className="space-y-1">
+      <p className="kicker mb-4">Table of contents</p>
+      <ul className="space-y-px">
         {headings.map((h) => {
           const active = h.id === activeId;
           return (
             <li key={h.id} className={indent[h.level]}>
               <a
                 href={`#${h.id}`}
-                className={`block truncate rounded px-2 py-1 transition hover:bg-ink-code dark:hover:bg-nightInk-code ${
+                className={
                   active
-                    ? "bg-ink-code font-semibold text-ink-fg dark:bg-nightInk-code dark:text-nightInk-fg"
-                    : "text-ink-muted dark:text-nightInk-muted"
-                }`}
+                    ? "block truncate bg-ink-fg px-2 py-1 font-semibold text-ink-bg dark:bg-nightInk-fg dark:text-nightInk-bg"
+                    : "block truncate px-2 py-1 text-ink-muted hover:text-ink-point dark:text-nightInk-muted dark:hover:text-nightInk-point"
+                }
               >
                 {h.text}
               </a>

@@ -12,67 +12,111 @@
     height: 100%;
   }
   body {
-    @apply bg-ink-bg text-ink-fg dark:bg-nightInk-bg dark:text-nightInk-fg;
+    @apply bg-ink-bg text-ink-muted dark:bg-nightInk-bg dark:text-nightInk-muted;
     font-family: theme("fontFamily.sans");
+    font-feature-settings: "ss03", "ss04";
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Editorial signature components */
+@layer components {
+  /* Kicker — wide-tracked uppercase eyebrow label */
+  .kicker {
+    @apply text-[0.6875rem] uppercase text-ink-subtle dark:text-nightInk-subtle;
+    letter-spacing: 0.22em;
+    line-height: 1.4;
+  }
+
+  /* CTA — text + bottom 1px border, point color on hover (instant) */
+  .cta {
+    @apply inline-flex items-baseline gap-2 border-b pb-0.5 text-sm
+           border-ink-fg text-ink-fg
+           hover:border-ink-point hover:text-ink-point
+           focus-visible:border-ink-point focus-visible:text-ink-point
+           dark:border-nightInk-fg dark:text-nightInk-fg
+           dark:hover:border-nightInk-point dark:hover:text-nightInk-point
+           dark:focus-visible:border-nightInk-point dark:focus-visible:text-nightInk-point;
+  }
+
+  /* Editorial card — top 1px black border, no radius, no shadow */
+  .ed-card {
+    @apply block border-t pt-5 border-ink-fg dark:border-nightInk-fg;
   }
 }
 
 /* Markdown body — applied via .md-body class on the rendered container */
 @layer components {
   .md-body {
-    @apply leading-[1.7];
+    @apply text-ink-fg dark:text-nightInk-fg;
+    line-height: 1.85;
   }
   .md-body h1 {
-    @apply mb-4 mt-10 text-3xl font-semibold tracking-tight;
+    @apply mb-5 mt-12 text-3xl font-semibold text-ink-fg dark:text-nightInk-fg;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
   }
   .md-body h2 {
-    @apply mb-3 mt-8 text-2xl font-semibold tracking-tight;
+    @apply mb-4 mt-10 text-2xl font-semibold text-ink-fg dark:text-nightInk-fg;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
   }
   .md-body h3 {
-    @apply mb-2 mt-6 text-xl font-semibold;
+    @apply mb-3 mt-6 text-xl font-semibold text-ink-fg dark:text-nightInk-fg;
+    letter-spacing: -0.025em;
   }
   .md-body h4 {
-    @apply mb-2 mt-5 text-lg font-semibold;
+    @apply mb-2 mt-5 text-lg font-semibold text-ink-fg dark:text-nightInk-fg;
+    letter-spacing: -0.025em;
   }
   .md-body p {
-    @apply my-4;
+    @apply my-5;
   }
   .md-body a {
-    @apply underline decoration-1 underline-offset-2 hover:opacity-80;
+    @apply underline decoration-1 underline-offset-[3px]
+           text-ink-fg hover:text-ink-point
+           dark:text-nightInk-fg dark:hover:text-nightInk-point;
   }
   .md-body ul {
-    @apply my-4 list-disc pl-6;
+    @apply my-5 list-disc pl-6;
   }
   .md-body ol {
-    @apply my-4 list-decimal pl-6;
+    @apply my-5 list-decimal pl-6;
   }
   .md-body li {
-    @apply my-1;
+    @apply my-1.5;
   }
   .md-body blockquote {
-    @apply my-4 border-l-4 border-ink-border pl-4 text-ink-muted dark:border-nightInk-border dark:text-nightInk-muted;
+    @apply my-6 border-l-2 border-ink-fg pl-5 text-ink-muted dark:border-nightInk-fg dark:text-nightInk-muted;
   }
   .md-body hr {
-    @apply my-8 border-ink-border dark:border-nightInk-border;
+    @apply my-10 border-ink-border dark:border-nightInk-border;
   }
   .md-body table {
-    @apply my-4 w-full border-collapse text-sm;
+    @apply my-5 w-full border-collapse text-sm;
   }
   .md-body th,
   .md-body td {
     @apply border border-ink-border px-3 py-2 dark:border-nightInk-border;
   }
   .md-body th {
-    @apply bg-ink-code/60 text-left font-semibold dark:bg-nightInk-code/60;
+    @apply text-left font-semibold text-ink-fg dark:text-nightInk-fg;
   }
   .md-body code:not(pre code) {
-    @apply rounded bg-ink-code px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-nightInk-code;
+    @apply bg-ink-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink-fg dark:bg-nightInk-surface dark:text-nightInk-fg;
   }
   .md-body pre {
-    @apply my-5 overflow-x-auto rounded-lg p-4 font-mono text-[0.9em];
+    @apply my-6 overflow-x-auto border border-ink-border p-4 font-mono text-[0.9em] dark:border-nightInk-border;
   }
   .md-body img {
-    @apply my-4 max-w-full rounded;
+    @apply my-5 max-w-full;
+  }
+  .md-body .heading-anchor {
+    @apply ml-2 no-underline opacity-0 transition-opacity;
+    font-weight: 400;
+  }
+  .md-body :is(h1, h2, h3, h4, h5, h6):hover .heading-anchor {
+    @apply opacity-40 hover:opacity-100;
   }
   .md-body .table-wrap {
     @apply overflow-x-auto;
@@ -114,7 +158,7 @@
     max-width: none !important;
   }
   .md-body pre {
-    background: #f6f7f9 !important;
+    background: #fafafa !important;
     color: #000 !important;
   }
 }

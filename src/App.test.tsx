@@ -40,7 +40,7 @@ describe("App", () => {
   });
 
   it("shows toast on bad extension", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ applyAccept: false });
     render(<App />);
     const file = new File(["x"], "doc.txt", { type: "text/plain" });
     await user.upload(screen.getByLabelText(/파일 선택/), file);

@@ -42,6 +42,7 @@ export function Dropzone({ onFiles }: Props) {
           <input
             ref={inputRef}
             type="file"
+            accept=".md,.markdown,text/markdown"
             className="sr-only"
             aria-label="파일 선택"
             onChange={(e) => {

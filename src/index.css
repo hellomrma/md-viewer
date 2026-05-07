@@ -103,10 +103,10 @@
     @apply text-left font-semibold text-ink-fg dark:text-nightInk-fg;
   }
   .md-body code:not(pre code) {
-    @apply bg-ink-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink-fg dark:bg-nightInk-surface dark:text-nightInk-fg;
+    @apply bg-ink-surface px-1.5 py-0.5 font-sans text-[0.9em] text-ink-fg dark:bg-nightInk-surface dark:text-nightInk-fg;
   }
   .md-body pre {
-    @apply my-6 overflow-x-auto border border-ink-border p-4 font-mono text-[0.9em] dark:border-nightInk-border;
+    @apply my-6 overflow-x-auto border border-ink-border p-4 font-sans text-[0.9em] dark:border-nightInk-border;
   }
   .md-body img {
     @apply my-5 max-w-full;

@@ -2,14 +2,152 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- Icons & PWA -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Viewport & display -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1115" />
+
+    <!-- Crawling -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <!-- Primary meta -->
+    <title>MD Viewer — 브라우저 마크다운 뷰어</title>
+    <meta name="title" content="MD Viewer — 브라우저 마크다운 뷰어" />
     <meta
       name="description"
-      content="브라우저에서 마크다운(.md) 파일을 가독성 있게 보는 뷰어. 파일은 서버로 전송되지 않습니다."
+      content="마크다운(.md) 파일을 브라우저에서 바로 열람하는 무료 뷰어. 파일은 서버로 전송되지 않으며, GitHub Flavored Markdown·코드 하이라이팅·목차 자동 생성을 지원합니다."
     />
-    <title>MD Viewer</title>
+    <meta
+      name="keywords"
+      content="마크다운 뷰어, markdown viewer, md 파일 열기, GFM, 코드 하이라이팅, 목차, 드래그앤드롭, 프라이버시, 로컬 파일"
+    />
+    <meta name="author" content="MD Viewer" />
+
+    <!-- Geo / Language targeting -->
+    <meta name="geo.region" content="KR" />
+    <meta name="geo.country" content="Korea" />
+    <meta name="language" content="Korean" />
+    <meta name="content-language" content="ko" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="__APP_URL__/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="__APP_URL__/" />
+    <meta property="og:site_name" content="MD Viewer" />
+    <meta property="og:title" content="MD Viewer — 브라우저 마크다운 뷰어" />
+    <meta
+      property="og:description"
+      content="마크다운(.md) 파일을 브라우저에서 바로 열람하는 무료 뷰어. 파일은 서버로 전송되지 않으며, GitHub Flavored Markdown·코드 하이라이팅·목차 자동 생성을 지원합니다."
+    />
+    <meta property="og:image" content="__APP_URL__/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MD Viewer — 브라우저 마크다운 뷰어" />
+    <meta property="og:locale" content="ko_KR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="__APP_URL__/" />
+    <meta name="twitter:title" content="MD Viewer — 브라우저 마크다운 뷰어" />
+    <meta
+      name="twitter:description"
+      content="마크다운(.md) 파일을 브라우저에서 바로 열람하는 무료 뷰어. 파일은 서버로 전송되지 않으며, GitHub Flavored Markdown·코드 하이라이팅·목차 자동 생성을 지원합니다."
+    />
+    <meta name="twitter:image" content="__APP_URL__/og-image.svg" />
+
+    <!-- JSON-LD: WebApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "__APP_URL__/#webapp",
+        "name": "MD Viewer",
+        "alternateName": "마크다운 뷰어",
+        "url": "__APP_URL__/",
+        "description": "마크다운(.md) 파일을 브라우저에서 바로 열람하는 무료 뷰어. 파일은 서버로 전송되지 않으며 완전히 로컬에서 처리됩니다.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "inLanguage": "ko",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "KRW"
+        },
+        "featureList": [
+          "GitHub Flavored Markdown(GFM) 지원",
+          "코드 구문 강조 (Shiki)",
+          "목차(TOC) 자동 생성",
+          "다크·라이트 테마 전환",
+          "드래그앤드롭 파일 업로드",
+          "완전 로컬 처리 — 파일 비전송",
+          "헤딩 앵커 링크",
+          "코드 블록 복사 버튼"
+        ],
+        "screenshot": "__APP_URL__/og-image.svg"
+      }
+    </script>
+
+    <!-- JSON-LD: FAQPage (AEO / GEO) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "MD Viewer는 무엇인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MD Viewer는 마크다운(.md) 파일을 별도 설치 없이 브라우저에서 바로 열람할 수 있는 무료 웹 애플리케이션입니다. GitHub Flavored Markdown, 코드 구문 강조, 목차 자동 생성을 지원합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "업로드한 파일이 서버로 전송되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "아니요. 모든 파일 처리는 브라우저 내에서만 이루어지며, 파일 내용은 서버로 전송되거나 저장되지 않습니다. 완전한 프라이버시가 보장됩니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "어떤 마크다운 문법을 지원하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "CommonMark 표준과 GitHub Flavored Markdown(GFM)을 지원합니다. 표(table), 작업 목록(task list), 취소선(strikethrough), 자동 링크(autolink), 코드 블록 구문 강조 등이 포함됩니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "다크 모드를 지원하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네. 라이트·다크·시스템 테마를 지원하며, 툴바에서 언제든지 전환할 수 있습니다. 시스템 설정을 따르는 '자동' 모드도 제공합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "파일을 어떻게 열 수 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "마크다운 파일을 화면에 드래그앤드롭하거나 클릭해서 파일 선택 창을 열면 됩니다. 또한 ?doc=파일명 형식의 URL 파라미터로 특정 문서에 직접 링크할 수 있습니다."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Pretendard font -->
     <link
       rel="stylesheet"
       as="style"

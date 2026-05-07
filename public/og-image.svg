@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0f1115"/>
+
+  <!-- Subtle grid -->
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#1a1d24" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Logo icon (favicon scaled to 160×160, centered horizontally) -->
+  <svg x="520" y="130" width="160" height="160" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="12" fill="#1e2028"/>
+    <path fill="#e6e7ea" d="M14 18h7l5 9 5-9h7v28h-6V28l-5 8h-2l-5-8v18h-6z"/>
+  </svg>
+
+  <!-- Title -->
+  <text
+    x="600" y="358"
+    text-anchor="middle"
+    fill="#f8fafc"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    font-size="68"
+    font-weight="700"
+    letter-spacing="-1"
+  >MD Viewer</text>
+
+  <!-- Subtitle -->
+  <text
+    x="600" y="418"
+    text-anchor="middle"
+    fill="#64748b"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    font-size="28"
+    font-weight="400"
+  >브라우저 마크다운 뷰어</text>
+
+  <!-- Feature pills -->
+  <rect x="288" y="468" width="172" height="40" rx="20" fill="#1e293b"/>
+  <text x="374" y="493" text-anchor="middle" fill="#94a3b8"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif"
+    font-size="16">GFM 지원</text>
+
+  <rect x="476" y="468" width="172" height="40" rx="20" fill="#1e293b"/>
+  <text x="562" y="493" text-anchor="middle" fill="#94a3b8"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif"
+    font-size="16">코드 하이라이팅</text>
+
+  <rect x="664" y="468" width="172" height="40" rx="20" fill="#1e293b"/>
+  <text x="750" y="493" text-anchor="middle" fill="#94a3b8"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif"
+    font-size="16">파일 비전송</text>
+</svg>

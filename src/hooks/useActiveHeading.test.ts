@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useActiveHeading } from "./useActiveHeading";
 import type { Heading } from "@/types";

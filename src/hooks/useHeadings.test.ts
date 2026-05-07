@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { renderHook } from "@testing-library/react";
-import { useRef, useEffect } from "react";
+import type { RefObject } from "react";
 import { useHeadings } from "./useHeadings";
 
 function setupContainer(html: string): HTMLDivElement {
@@ -13,7 +13,7 @@ function setupContainer(html: string): HTMLDivElement {
 describe("useHeadings", () => {
   it("returns empty when ref is null", () => {
     const { result } = renderHook(() =>
-      useHeadings({ current: null } as React.RefObject<HTMLElement>),
+      useHeadings({ current: null } as unknown as RefObject<HTMLElement>),
     );
     expect(result.current).toEqual([]);
   });
@@ -23,7 +23,7 @@ describe("useHeadings", () => {
       '<h1 id="a">A</h1><p>x</p><h2 id="b">B</h2><h3 id="c">C</h3><h4 id="d">D</h4>',
     );
     const ref = { current: root };
-    const { result } = renderHook(() => useHeadings(ref as React.RefObject<HTMLElement>));
+    const { result } = renderHook(() => useHeadings(ref as RefObject<HTMLElement>));
     expect(result.current).toEqual([
       { id: "a", text: "A", level: 1 },
       { id: "b", text: "B", level: 2 },
@@ -35,7 +35,7 @@ describe("useHeadings", () => {
   it("skips headings without id", () => {
     const root = setupContainer('<h2>NoId</h2><h2 id="ok">OK</h2>');
     const ref = { current: root };
-    const { result } = renderHook(() => useHeadings(ref as React.RefObject<HTMLElement>));
+    const { result } = renderHook(() => useHeadings(ref as RefObject<HTMLElement>));
     expect(result.current).toEqual([{ id: "ok", text: "OK", level: 2 }]);
     document.body.removeChild(root);
   });

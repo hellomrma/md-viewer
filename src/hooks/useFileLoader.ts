@@ -8,7 +8,8 @@ export type LoadErrorCode =
   | "BAD_EXT"
   | "TOO_LARGE"
   | "BAD_ENCODING"
-  | "MULTIPLE";
+  | "MULTIPLE"
+  | "FETCH_FAILED";
 
 export type LoadResult =
   | { ok: true; value: FileMeta }
@@ -50,6 +51,7 @@ export interface UseFileLoaderState {
   error: LoadErrorCode | null;
   loadFromList: (list: FileList | File[]) => Promise<void>;
   loadOne: (file: File) => Promise<void>;
+  loadFromUrl: (fileName: string) => Promise<void>;
   reset: () => void;
 }
 
@@ -71,7 +73,24 @@ export function useFileLoader(): UseFileLoaderState {
     await loadOne(arr[0]);
   }, [loadOne]);
 
+  const loadFromUrl = useCallback(async (fileName: string) => {
+    setError(null);
+    try {
+      const res = await fetch(`/docs/${encodeURIComponent(fileName)}`);
+      if (!res.ok) { setFile(null); setError("FETCH_FAILED"); return; }
+      const content = await res.text();
+      setFile({
+        name: fileName,
+        content,
+        sizeKB: Math.max(1, Math.round(content.length / 1024)),
+      });
+    } catch {
+      setFile(null);
+      setError("FETCH_FAILED");
+    }
+  }, []);
+
   const reset = useCallback(() => { setFile(null); setError(null); }, []);
 
-  return { file, error, loadFromList, loadOne, reset };
+  return { file, error, loadFromList, loadOne, loadFromUrl, reset };
 }

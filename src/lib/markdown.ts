@@ -31,3 +31,23 @@ export const rehypePlugins: PluggableList = [
   ],
   [rehypeSanitize, sanitizeSchema],
 ];
+
+/**
+ * Sync-only rehype plugins for use with react-markdown (which uses unified.runSync).
+ * Excludes @shikijs/rehype which is async.
+ */
+export const rehypePluginsSync: PluggableList = [
+  rehypeSlug,
+  [
+    rehypeAutolinkHeadings,
+    {
+      behavior: "append",
+      properties: {
+        className: ["heading-anchor"],
+        ariaLabel: "anchor link",
+      },
+      content: { type: "text", value: "#" },
+    },
+  ],
+  [rehypeSanitize, sanitizeSchema],
+];

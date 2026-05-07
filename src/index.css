@@ -148,6 +148,34 @@
   }
 }
 
+/* TocSidebar custom scrollbar */
+.toc-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+}
+.toc-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.toc-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.toc-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d4d4d4;
+  border-radius: 9999px;
+}
+.toc-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a3a3a3;
+}
+.dark .toc-scrollbar {
+  scrollbar-color: #3a3e47 transparent;
+}
+.dark .toc-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3a3e47;
+}
+.dark .toc-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #555b66;
+}
+
 /* Print styles: hide chrome, force light look, full width */
 @media print {
   .no-print {

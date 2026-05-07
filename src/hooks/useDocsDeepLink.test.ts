@@ -19,10 +19,23 @@ describe("useDocsDeepLink", () => {
     expect(onResolve).not.toHaveBeenCalled();
   });
 
-  it("resolves to home when no ?doc on mount", () => {
+  it("does not resolve on mount when no ?doc (preserves user state)", () => {
     const onResolve = vi.fn();
     renderHook(() => useDocsDeepLink({ docs, onResolve }));
-    expect(onResolve).toHaveBeenCalledWith("home");
+    expect(onResolve).not.toHaveBeenCalled();
+  });
+
+  it("resolves to home on popstate when ?doc removed", () => {
+    window.history.replaceState({}, "", "/?doc=a.md");
+    const onResolve = vi.fn();
+    renderHook(() => useDocsDeepLink({ docs, onResolve }));
+    onResolve.mockClear();
+
+    act(() => {
+      window.history.pushState({}, "", "/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    expect(onResolve).toHaveBeenLastCalledWith("home");
   });
 
   it("resolves to matching entry when ?doc matches", () => {

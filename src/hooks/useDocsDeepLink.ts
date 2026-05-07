@@ -17,16 +17,23 @@ export function useDocsDeepLink({ docs, onResolve }: Args): {
 
   useEffect(() => {
     if (!docs) return;
-    const dispatch = () => {
+    const initialDispatch = () => {
+      const url = new URL(window.location.href);
+      const docParam = url.searchParams.get("doc");
+      if (!docParam) return;
+      const match = docs.find((d) => d.file === docParam);
+      onResolveRef.current(match ?? "missing");
+    };
+    const onPopstate = () => {
       const url = new URL(window.location.href);
       const docParam = url.searchParams.get("doc");
       if (!docParam) { onResolveRef.current("home"); return; }
       const match = docs.find((d) => d.file === docParam);
       onResolveRef.current(match ?? "missing");
     };
-    dispatch();
-    window.addEventListener("popstate", dispatch);
-    return () => window.removeEventListener("popstate", dispatch);
+    initialDispatch();
+    window.addEventListener("popstate", onPopstate);
+    return () => window.removeEventListener("popstate", onPopstate);
   }, [docs]);
 
   const navigateToDoc = useCallback((entry: DocEntry) => {

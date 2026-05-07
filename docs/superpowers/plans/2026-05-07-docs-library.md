@@ -1260,7 +1260,7 @@ Update component signature:
 export function Dropzone({ onFiles, library }: Props) {
 ```
 
-Insert `<Library />` between the Hero `</section>` and the existing `{/* Features */}` comment (i.e., right after the `</section>` that closes the Hero block, before the Features section). Add this block:
+Insert `<Library />` between the existing `{/* Drop zone */}` section's closing `</section>` and the `{/* Features */}` comment. The current Dropzone has these sections in order: Header → Hero → Drop zone → Features → Spec strip → Footer. Library goes **after Drop zone, before Features**. Add this block:
 
 ```tsx
       {library && library.docs.length > 0 && (

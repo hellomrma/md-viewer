@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import type { Plugin } from "vite";
 
 const MANIFEST_FILE = "manifest.json";
 const HEAD_BYTES = 8 * 1024;
@@ -82,4 +83,60 @@ export async function buildManifest(docsAbsDir: string): Promise<Manifest> {
 
   docs.sort((a, b) => a.file.localeCompare(b.file, "ko"));
   return { version: 1, generatedAt, docs };
+}
+
+const DOCS_DIR_REL = path.join("public", "docs");
+const DEBOUNCE_MS = 150;
+
+export async function writeManifest(docsAbsDir: string): Promise<void> {
+  const manifest = await buildManifest(docsAbsDir);
+  await fs.mkdir(docsAbsDir, { recursive: true });
+  const manifestPath = path.join(docsAbsDir, MANIFEST_FILE);
+  await fs.writeFile(
+    manifestPath,
+    JSON.stringify(manifest, null, 2) + "\n",
+    "utf8",
+  );
+}
+
+export function docsManifest(): Plugin {
+  let docsAbsDir = "";
+  let timer: NodeJS.Timeout | null = null;
+
+  function scheduleWrite(after?: () => void) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(async () => {
+      timer = null;
+      try {
+        await writeManifest(docsAbsDir);
+        after?.();
+      } catch (err) {
+        console.error("[vite-plugin-docs-manifest] write failed:", err);
+      }
+    }, DEBOUNCE_MS);
+  }
+
+  return {
+    name: "vite-plugin-docs-manifest",
+
+    configResolved(config) {
+      docsAbsDir = path.resolve(config.root, DOCS_DIR_REL);
+    },
+
+    async buildStart() {
+      await writeManifest(docsAbsDir);
+    },
+
+    configureServer(server) {
+      server.watcher.add(docsAbsDir);
+      const onChange = (changedPath: string) => {
+        if (!changedPath.startsWith(docsAbsDir)) return;
+        if (path.basename(changedPath) === MANIFEST_FILE) return;
+        scheduleWrite(() => server.ws.send({ type: "full-reload" }));
+      };
+      server.watcher.on("add", onChange);
+      server.watcher.on("change", onChange);
+      server.watcher.on("unlink", onChange);
+    },
+  };
 }

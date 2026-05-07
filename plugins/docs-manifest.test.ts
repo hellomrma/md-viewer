@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import os from "node:os";
-import { extractTitle, buildManifest } from "./docs-manifest";
+import { extractTitle, buildManifest, writeManifest } from "./docs-manifest";
 
 describe("extractTitle", () => {
   it("returns first H1 line", () => {
@@ -98,5 +98,35 @@ describe("buildManifest", () => {
     await fs.writeFile(path.join(dir, "no-heading.md"), "just body\n");
     const m = await buildManifest(dir);
     expect(m.docs[0].title).toBe("No heading");
+  });
+});
+
+describe("writeManifest", () => {
+  let dir: string;
+
+  beforeEach(async () => {
+    dir = await fs.mkdtemp(path.join(os.tmpdir(), "docs-manifest-write-"));
+  });
+
+  afterEach(async () => {
+    await fs.rm(dir, { recursive: true, force: true });
+  });
+
+  it("writes manifest.json with valid schema", async () => {
+    await fs.writeFile(path.join(dir, "x.md"), "# X\n");
+    await writeManifest(dir);
+    const raw = await fs.readFile(path.join(dir, "manifest.json"), "utf8");
+    const parsed = JSON.parse(raw);
+    expect(parsed.version).toBe(1);
+    expect(parsed.docs).toEqual([
+      { file: "x.md", title: "X", sizeKB: 1 },
+    ]);
+  });
+
+  it("creates directory if missing", async () => {
+    const subdir = path.join(dir, "missing-yet");
+    await writeManifest(subdir);
+    const raw = await fs.readFile(path.join(subdir, "manifest.json"), "utf8");
+    expect(JSON.parse(raw).docs).toEqual([]);
   });
 });

@@ -57,7 +57,7 @@
     line-height: 1.1;
   }
   .md-body h2 {
-    @apply mb-4 mt-10 text-2xl font-semibold text-ink-fg dark:text-nightInk-fg;
+    @apply mb-4 mt-10 text-2xl font-semibold text-ink-point dark:text-nightInk-point;
     letter-spacing: -0.025em;
     line-height: 1.2;
   }
@@ -66,7 +66,7 @@
     letter-spacing: -0.025em;
   }
   .md-body h4 {
-    @apply mb-2 mt-5 text-lg font-semibold text-ink-fg dark:text-nightInk-fg;
+    @apply mb-2 mt-5 text-lg font-semibold text-ink-muted dark:text-nightInk-muted;
     letter-spacing: -0.025em;
   }
   .md-body p {

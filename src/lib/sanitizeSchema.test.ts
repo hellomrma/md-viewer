@@ -19,8 +19,13 @@ describe("sanitizeSchema", () => {
     }
   });
 
-  it("allows aria-label and href on a (autolink)", () => {
-    expect(sanitizeSchema.attributes!.a).toEqual(expect.arrayContaining(["href", "ariaLabel"]));
+  it("allows aria-label, href, and unrestricted className on a (autolink)", () => {
+    const aAttrs = sanitizeSchema.attributes!.a;
+    expect(aAttrs).toEqual(expect.arrayContaining(["href", "ariaLabel", "className"]));
+    // Must not contain the className tuple that restricts to footnote-only values
+    expect(aAttrs).not.toEqual(
+      expect.arrayContaining([expect.arrayContaining(["className"])]),
+    );
   });
 
   it("does not allow script tag", () => {

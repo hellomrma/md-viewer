@@ -28,12 +28,15 @@ export const sanitizeSchema: Schema = {
     h4: merge(defaultSchema.attributes?.h4 as string[] | undefined, ["id"]),
     h5: merge(defaultSchema.attributes?.h5 as string[] | undefined, ["id"]),
     h6: merge(defaultSchema.attributes?.h6 as string[] | undefined, ["id"]),
-    a: merge(defaultSchema.attributes?.a as string[] | undefined, [
-      "href",
-      "ariaLabel",
+    a: [
+      // The defaultSchema restricts className to "data-footnote-backref" via a tuple.
+      // Remove that tuple so heading-anchor and other classes aren't stripped.
+      ...(defaultSchema.attributes?.a ?? []).filter(
+        (attr) => !(Array.isArray(attr) && attr[0] === "className"),
+      ),
       "ariaHidden",
       "className",
-    ]),
+    ],
     input: merge(defaultSchema.attributes?.input as string[] | undefined, [
       "type",
       "checked",

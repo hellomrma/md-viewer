@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-ink-bg text-ink-fg dark:bg-nightInk-bg dark:text-nightInk-fg;
+    font-family: theme("fontFamily.sans");
+  }
+}
+
+/* Markdown body — applied via .md-body class on the rendered container */
+@layer components {
+  .md-body {
+    @apply leading-[1.7];
+  }
+  .md-body h1 {
+    @apply mb-4 mt-10 text-3xl font-semibold tracking-tight;
+  }
+  .md-body h2 {
+    @apply mb-3 mt-8 text-2xl font-semibold tracking-tight;
+  }
+  .md-body h3 {
+    @apply mb-2 mt-6 text-xl font-semibold;
+  }
+  .md-body h4 {
+    @apply mb-2 mt-5 text-lg font-semibold;
+  }
+  .md-body p {
+    @apply my-4;
+  }
+  .md-body a {
+    @apply underline decoration-1 underline-offset-2 hover:opacity-80;
+  }
+  .md-body ul {
+    @apply my-4 list-disc pl-6;
+  }
+  .md-body ol {
+    @apply my-4 list-decimal pl-6;
+  }
+  .md-body li {
+    @apply my-1;
+  }
+  .md-body blockquote {
+    @apply my-4 border-l-4 border-ink-border pl-4 text-ink-muted dark:border-nightInk-border dark:text-nightInk-muted;
+  }
+  .md-body hr {
+    @apply my-8 border-ink-border dark:border-nightInk-border;
+  }
+  .md-body table {
+    @apply my-4 w-full border-collapse text-sm;
+  }
+  .md-body th,
+  .md-body td {
+    @apply border border-ink-border px-3 py-2 dark:border-nightInk-border;
+  }
+  .md-body th {
+    @apply bg-ink-code/60 text-left font-semibold dark:bg-nightInk-code/60;
+  }
+  .md-body code:not(pre code) {
+    @apply rounded bg-ink-code px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-nightInk-code;
+  }
+  .md-body pre {
+    @apply my-5 overflow-x-auto rounded-lg p-4 font-mono text-[0.9em];
+  }
+  .md-body img {
+    @apply my-4 max-w-full rounded;
+  }
+  .md-body .table-wrap {
+    @apply overflow-x-auto;
+  }
+
+  /* Width tokens controlled by a wrapper class on the body container */
+  .md-width-narrow {
+    max-width: theme("maxWidth.prose-narrow");
+  }
+  .md-width-normal {
+    max-width: theme("maxWidth.prose-normal");
+  }
+  .md-width-wide {
+    max-width: theme("maxWidth.prose-wide");
+  }
+
+  /* Font size tokens */
+  .md-font-s {
+    font-size: 15px;
+  }
+  .md-font-m {
+    font-size: 16px;
+  }
+  .md-font-l {
+    font-size: 18px;
+  }
+}
+
+/* Print styles: hide chrome, force light look, full width */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000 !important;
+  }
+  .md-body {
+    max-width: none !important;
+  }
+  .md-body pre {
+    background: #f6f7f9 !important;
+    color: #000 !important;
+  }
+}

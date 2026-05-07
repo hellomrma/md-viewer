@@ -1,0 +1,52 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { PreferencesProvider } from "@/context/PreferencesContext";
+import { Toolbar } from "./Toolbar";
+
+beforeEach(() => {
+  localStorage.clear();
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: () => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }),
+  });
+});
+
+describe("Toolbar", () => {
+  it("renders title and reset/print/theme/width/font controls", () => {
+    render(
+      <PreferencesProvider>
+        <Toolbar fileName="hello.md" onReset={() => {}} />
+      </PreferencesProvider>,
+    );
+    expect(screen.getByText("hello.md")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /새 파일/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /인쇄|print/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/테마/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/폭/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/글자/)).toBeInTheDocument();
+  });
+
+  it("invokes onReset when reset button clicked", async () => {
+    const fn = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <PreferencesProvider>
+        <Toolbar fileName="x.md" onReset={fn} />
+      </PreferencesProvider>,
+    );
+    await user.click(screen.getByRole("button", { name: /새 파일/ }));
+    expect(fn).toHaveBeenCalled();
+  });
+
+  it("toggling theme select updates context", async () => {
+    const user = userEvent.setup();
+    render(
+      <PreferencesProvider>
+        <Toolbar fileName="x.md" onReset={() => {}} />
+      </PreferencesProvider>,
+    );
+    await user.selectOptions(screen.getByLabelText(/테마/), "dark");
+    expect((screen.getByLabelText(/테마/) as HTMLSelectElement).value).toBe("dark");
+  });
+});

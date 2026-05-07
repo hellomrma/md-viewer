@@ -18,9 +18,8 @@ async function render(md: string): Promise<string> {
 describe("markdown pipeline", () => {
   it("renders headings with slug ids", async () => {
     const html = await render("# Hello World\n\n## Sub Title");
-    // rehype-sanitize prefixes heading ids with "user-content-" via defaultSchema clobberPrefix
-    expect(html).toMatch(/id="(user-content-)?hello-world"/);
-    expect(html).toMatch(/id="(user-content-)?sub-title"/);
+    expect(html).toContain('id="hello-world"');
+    expect(html).toContain('id="sub-title"');
   });
 
   it("renders GFM tables", async () => {

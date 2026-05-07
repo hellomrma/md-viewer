@@ -26,4 +26,8 @@ describe("sanitizeSchema", () => {
   it("does not allow script tag", () => {
     expect(sanitizeSchema.tagNames).not.toContain("script");
   });
+
+  it("disables clobberPrefix so heading ids are not rewritten", () => {
+    expect(sanitizeSchema.clobberPrefix).toBe("");
+  });
 });

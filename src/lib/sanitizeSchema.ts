@@ -5,6 +5,7 @@ const merge = <T,>(base: T[] | undefined, extra: T[]): T[] =>
 
 export const sanitizeSchema: Schema = {
   ...defaultSchema,
+  clobberPrefix: "",
   attributes: {
     ...defaultSchema.attributes,
     code: merge(defaultSchema.attributes?.code as string[] | undefined, ["className", "class"]),

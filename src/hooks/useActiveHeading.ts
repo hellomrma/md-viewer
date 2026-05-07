@@ -10,7 +10,7 @@ export function useActiveHeading(headings: Heading[]): string | null {
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
-    if (headings.length === 0) { setActive(null); return; }
+    if (headings.length === 0) return;
 
     const elements = headings
       .map((h) => document.getElementById(h.id))
@@ -35,5 +35,5 @@ export function useActiveHeading(headings: Heading[]): string | null {
     return () => observer.disconnect();
   }, [headings]);
 
-  return active;
+  return headings.length === 0 ? null : active;
 }

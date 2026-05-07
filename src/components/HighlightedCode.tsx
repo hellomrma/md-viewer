@@ -45,11 +45,11 @@ export function HighlightedCode({ code, lang }: Props) {
     <div className="group relative my-5">
       {html ? (
         <div
-          className="overflow-x-auto rounded-lg [&_pre]:p-4 [&_pre]:font-mono [&_pre]:text-[0.9em]"
+          className="overflow-x-auto rounded-lg [&_pre]:p-4 [&_pre]:font-sans [&_pre]:text-[0.9em]"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <pre className="overflow-x-auto rounded-lg bg-ink-code p-4 font-mono text-[0.9em] dark:bg-nightInk-code">
+        <pre className="overflow-x-auto rounded-lg bg-ink-code p-4 font-sans text-[0.9em] dark:bg-nightInk-code">
           <code>{code}</code>
         </pre>
       )}

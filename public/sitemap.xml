@@ -2,19 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://your-domain.com/</loc>
+<<<<<<< Updated upstream
     <lastmod>2026-05-10</lastmod>
+=======
+    <lastmod>2026-05-08</lastmod>
+>>>>>>> Stashed changes
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://your-domain.com/?doc=claude-code-guide.md</loc>
+<<<<<<< Updated upstream
     <lastmod>2026-05-10</lastmod>
+=======
+    <lastmod>2026-05-08</lastmod>
+>>>>>>> Stashed changes
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://your-domain.com/?doc=sample.md</loc>
+<<<<<<< Updated upstream
     <lastmod>2026-05-10</lastmod>
+=======
+    <lastmod>2026-05-08</lastmod>
+>>>>>>> Stashed changes
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
